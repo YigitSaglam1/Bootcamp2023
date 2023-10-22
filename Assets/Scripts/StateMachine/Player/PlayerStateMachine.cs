@@ -10,9 +10,10 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public LayerMask GroundMask{ get; private set; }
     [field: SerializeField] public CharacterController CharacterController { get; private set; }
     [field: SerializeField] public Animator animator { get; private set; }
+    [field: SerializeField] public PlayerDamageHandler DamageHandler { get; private set; }
     [field: SerializeField] public float RiffleMovementSpeed{ get; private set; }
-
-    public Camera MainCamera;
+    [field: SerializeField] public Camera MainCamera { get; private set; }
+    
 
     [field: SerializeField,Header("GUN OPTIONS")]
 
@@ -22,6 +23,19 @@ public class PlayerStateMachine : StateMachine
 
     public AnimationDetection AnimationDetection;
     public bool isAnimationEnd;
+
+
+
+    private void OnEnable()
+    {
+        DamageHandler.OnDie += HandleDie;
+    }
+    private void OnDisable()
+    {
+        DamageHandler.OnDie -= HandleDie;
+    }
+
+
 
     void Start()
     {
@@ -34,5 +48,9 @@ public class PlayerStateMachine : StateMachine
     //    isAnimationEnd = AnimationDetection.IsAnimationEnd();
     //}
 
+    private void HandleDie()
+    {
+        SwitchState(new PlayerDeathState(this));
+    }
 
 }

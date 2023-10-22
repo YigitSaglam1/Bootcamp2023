@@ -9,6 +9,7 @@ public class GunShoot : MonoBehaviour
     private float damageAmount = 10f;
     public ParticleSystem MuzzleFlash;
     public float hitForce = 50f;
+    public float WeaponRange = 10f;
 
     void Update()
     {
@@ -23,9 +24,11 @@ public class GunShoot : MonoBehaviour
         MuzzleFlash.Play();
         RaycastHit hit;
         Ray ray = new Ray(RiffleTip.transform.position, PlayerTransform.transform.TransformDirection(Vector3.forward));
-        if (Physics.Raycast(ray, out hit, 20f))
+        if (Physics.Raycast(ray, out hit, WeaponRange))
         {
+            
             Target target = hit.transform.GetComponent<Target>();
+            BoxBreak box = hit.transform.GetComponent<BoxBreak>();
             if (target != null)
             {
                 target.TakeDamage(damageAmount);
@@ -34,6 +37,16 @@ public class GunShoot : MonoBehaviour
             {
                 hit.rigidbody.AddForce(-hit.normal * hitForce);
             }
+            if (box != null)
+            {
+                box.TakeDamage(damageAmount);
+            }
+            if (hit.rigidbody != null)
+            {
+                hit.rigidbody.AddForce(-hit.normal * hitForce);
+            }
+            else {}
         }
+
     }
 }

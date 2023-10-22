@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,14 @@ public class TeleportDungeons : MonoBehaviour
     public Transform Dungeon03;
     public Transform Base;
     public int count = 0;
+    public GameObject WinUI;
 
     private void OnTriggerEnter(Collider other)
     {
+        if (3 - count == 0)
+        {
+            HandleWin();
+        }
         StartCoroutine("Teleport");
     }
     IEnumerator Teleport()
@@ -39,5 +45,10 @@ public class TeleportDungeons : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         Playerrg.SetActive(true);
         count++;
+    }
+    private void HandleWin()
+    {
+        WinUI.SetActive(true);
+        Time.timeScale = 0f;
     }
 }

@@ -5,22 +5,35 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    private float Health = 50f;
+    public float MaxHealth = 100f;
+    public float Health;
     public Action<Target> dieEvent;
+    public event Action OnDie;
+    public GameObject enemy;
+    public HealthBar healthBar;
 
+    private void Awake()
+    {
+        healthBar = GetComponentInChildren<HealthBar>();
+    }
+    private void Start()
+    {
+        Health = MaxHealth;
+        healthBar.UpdateHealthBar(Health, MaxHealth);
+    }
     public void TakeDamage(float damageAmmount)
     {
+        if (Health == 0) { return; }
+
         Health -= damageAmmount;
-        Debug.Log(Health);
+        healthBar.UpdateHealthBar(Health, MaxHealth);
 
         if (Health <= 0)
         {
+            OnDie?.Invoke();
             dieEvent?.Invoke(this);
-            Die();
+            Destroy(enemy,5);
         }
     }
-    private void Die()
-    {
-        Destroy(gameObject);
-    }
+
 }
