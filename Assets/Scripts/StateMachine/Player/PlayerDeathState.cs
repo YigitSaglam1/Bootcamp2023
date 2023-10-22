@@ -15,7 +15,10 @@ public class PlayerDeathState : PlayerBaseState
     }
     public override void Tick(float deltaTime)
     {
-
+        if (stateMachine.AnimationDetection.IsAnimationEnd())
+        {
+            stateMachine.pauseMenuScript.HandleDie();
+        }
     }
     public override void Exit(){}
 

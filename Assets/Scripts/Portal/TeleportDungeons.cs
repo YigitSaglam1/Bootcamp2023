@@ -13,6 +13,7 @@ public class TeleportDungeons : MonoBehaviour
     public Transform Base;
     public int count = 0;
     public GameObject WinUI;
+    public GameObject WinLoseUI;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -48,6 +49,7 @@ public class TeleportDungeons : MonoBehaviour
     }
     private void HandleWin()
     {
+        WinLoseUI.SetActive(true);
         WinUI.SetActive(true);
         Time.timeScale = 0f;
     }

@@ -15,6 +15,7 @@ public class PlayerLocomotionState : PlayerBaseState
         stateMachine.animator.CrossFadeInFixedTime(LocomotionBlendTreeHash, crossFadeDuration);
         stateMachine.AnimationDetection.AnimationStart();
         stateMachine.InputHandler.reloadEvent += OnReload;
+        stateMachine.DamageHandler.OnDie += OnDieHandler;
         
     }
     public override void Tick(float deltaTime)
@@ -46,9 +47,13 @@ public class PlayerLocomotionState : PlayerBaseState
     public override void Exit()
     {
         stateMachine.InputHandler.reloadEvent -= OnReload;
+        stateMachine.DamageHandler.OnDie -= OnDieHandler;
     }
 
-
+    private void OnDieHandler()
+    {
+        stateMachine.SwitchState(new PlayerDeathState(stateMachine));
+    }
     private void OnReload()
     {
         stateMachine.SwitchState(new PlayerReloadState(stateMachine));

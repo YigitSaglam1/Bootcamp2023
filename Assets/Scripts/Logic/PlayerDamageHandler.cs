@@ -18,8 +18,6 @@ public class PlayerDamageHandler : MonoBehaviour
         healthBar.UpdateHealthBar(health, maxHealth);
     }
 
-
-
     private void OnTriggerEnter(Collider other)
     {
         
@@ -37,7 +35,7 @@ public class PlayerDamageHandler : MonoBehaviour
         if (health <= 0)
         {
             OnDie?.Invoke();
-            Destroy(player,5);
+
         }
     }
 }

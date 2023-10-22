@@ -14,6 +14,7 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public float RiffleMovementSpeed{ get; private set; }
     [field: SerializeField] public Camera MainCamera { get; private set; }
     [field: SerializeField] public GunShoot gunShootScript { get; private set; }
+    [field: SerializeField] public PauseMenuScript pauseMenuScript { get; private set; }
 
     [field: SerializeField,Header("GUN OPTIONS")]
 
@@ -22,6 +23,7 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField, Header("ANIMATION DETECTION OPTIONS")]
 
     public AnimationDetection AnimationDetection;
+    public SoundManager soundManager;
     public bool isAnimationEnd;
 
 
@@ -35,7 +37,18 @@ public class PlayerStateMachine : StateMachine
         DamageHandler.OnDie -= HandleDie;
     }
 
-
+    private void Awake()
+    {
+        if (!PlayerPrefs.HasKey("musicVolume"))
+        {
+            PlayerPrefs.SetFloat("musicVolume", 0.1f);
+            soundManager.Load();
+        }
+        else
+        {
+            soundManager.Load();
+        }
+    }
 
     void Start()
     {

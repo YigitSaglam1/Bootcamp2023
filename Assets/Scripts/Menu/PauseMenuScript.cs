@@ -7,25 +7,16 @@ using UnityEngine.UI;
 
 public class PauseMenuScript : MonoBehaviour
 {
-    [field: SerializeField] public PlayerDamageHandler DamageHandler { get; private set; }
-
     public static bool GameIsPaused = false;
     public GameObject PauseMenuUI;
     public GameObject LoseUI;
     public GameObject WinUI;
+    public GameObject WinLoseUI;
     public Text _ammoText;
-
-    private void OnEnable()
-    {
-        DamageHandler.OnDie += HandleDie;
-    }
-    private void OnDisable()
-    {
-        DamageHandler.OnDie -= HandleDie;
-    }
 
     private void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused) 
@@ -70,6 +61,7 @@ public class PauseMenuScript : MonoBehaviour
     }
     public void HandleDie()
     {
+        WinLoseUI.SetActive(true);
         LoseUI.SetActive(true);
         Time.timeScale = 0f;
     }
