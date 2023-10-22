@@ -1998,6 +1998,7 @@ MonoBehaviour:
   <DamageHandler>k__BackingField: {fileID: 6159941339883838611}
   <RiffleMovementSpeed>k__BackingField: 6
   <MainCamera>k__BackingField: {fileID: 0}
+  <gunShootScript>k__BackingField: {fileID: 5255473709975679848}
   RiffleTip: {fileID: 4229425082159305209}
   AnimationDetection: {fileID: 925533296834643459}
   isAnimationEnd: 0
@@ -2889,6 +2890,8 @@ MonoBehaviour:
   PlayerTransform: {fileID: 6784363412833028750}
   MuzzleFlash: {fileID: 9037217610164655257}
   hitForce: 50
+  WeaponRange: 10
+  MaxAmmo: 9
 --- !u!1 &8225048487377772129
 GameObject:
   m_ObjectHideFlags: 0

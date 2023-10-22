@@ -13,7 +13,7 @@ public class PlayerStateMachine : StateMachine
     [field: SerializeField] public PlayerDamageHandler DamageHandler { get; private set; }
     [field: SerializeField] public float RiffleMovementSpeed{ get; private set; }
     [field: SerializeField] public Camera MainCamera { get; private set; }
-    
+    [field: SerializeField] public GunShoot gunShootScript { get; private set; }
 
     [field: SerializeField,Header("GUN OPTIONS")]
 

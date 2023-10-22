@@ -18,6 +18,7 @@ public class PlayerReloadState : PlayerBaseState
         isAnimationEnd = stateMachine.AnimationDetection.IsAnimationEnd();
         if (isAnimationEnd)
         {
+            stateMachine.gunShootScript.ReloadAmmo();
             stateMachine.SwitchState(new PlayerLocomotionState(stateMachine));
         }
     }

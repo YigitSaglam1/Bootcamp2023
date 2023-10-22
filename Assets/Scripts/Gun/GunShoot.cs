@@ -10,17 +10,32 @@ public class GunShoot : MonoBehaviour
     public ParticleSystem MuzzleFlash;
     public float hitForce = 50f;
     public float WeaponRange = 10f;
+    public int MaxAmmo = 9;
+    private int currentAmmo;
+    public PauseMenuScript UIAmmoCounter;
 
+
+    private void Start()
+    {
+        currentAmmo = MaxAmmo;
+    }
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && Time.timeScale == 1f)
+        if (currentAmmo > 0)
         {
-            Shoot();
+            if (Input.GetButtonDown("Fire1") && Time.timeScale == 1f)
+            {
+                Shoot();
+            }
         }
+      
     }
 
     void Shoot()
     {
+        currentAmmo--;
+        UIAmmoCounter.UpdateAmmo(currentAmmo);
+
         MuzzleFlash.Play();
         RaycastHit hit;
         Ray ray = new Ray(RiffleTip.transform.position, PlayerTransform.transform.TransformDirection(Vector3.forward));
@@ -47,6 +62,10 @@ public class GunShoot : MonoBehaviour
             }
             else {}
         }
-
+    }
+    public void ReloadAmmo()
+    {
+        currentAmmo = MaxAmmo;
+        UIAmmoCounter.UpdateAmmo(currentAmmo);
     }
 }

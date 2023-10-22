@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenuScript : MonoBehaviour
 {
@@ -11,7 +13,7 @@ public class PauseMenuScript : MonoBehaviour
     public GameObject PauseMenuUI;
     public GameObject LoseUI;
     public GameObject WinUI;
-
+    public Text _ammoText;
 
     private void OnEnable()
     {
@@ -70,5 +72,10 @@ public class PauseMenuScript : MonoBehaviour
     {
         LoseUI.SetActive(true);
         Time.timeScale = 0f;
+    }
+
+    public void UpdateAmmo(int ammoCount)
+    {
+        _ammoText.text = ""+ammoCount;
     }
 }
